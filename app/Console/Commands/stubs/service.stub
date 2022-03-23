@@ -1,0 +1,19 @@
+<?php
+
+namespace DummyNamespace;
+
+use NamespacedDummyModel;
+
+class DummyClass
+{
+    /**
+     * Service constructor.
+     *
+     * @param  \NamespacedDummyModel  $dummyModel
+     * @return DummyClass
+     */
+    public function __construct(DummyModel $dummyModel = null)
+    {
+        //
+    }
+}
