@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\SupportRequestController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +18,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+Route::group([
+    'middleware' => ['auth:api']
+],function(){
+
+    Route::get('users/{user}/restore',[UserController::class,'restore']);
+    Route::delete('users/{user}/force',[UserController::class,'forceDelete']);
+    Route::apiResource('users',UserController::class);
+
+    Route::apiResource('SupportRequest',SupportRequestController::class);
 });

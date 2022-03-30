@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -17,8 +20,8 @@ class UserController extends Controller
     public function index()
     {
         $this->authorize('viewAny', User::class);
-
-        $users = User::filterSortPaginate($this->perpage);
+        
+        $users = User::withTrashedResource()->withRelationships()->filterSortPaginate();
 
         return response()->json($users);
     }
@@ -26,35 +29,45 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  App\Http\Requests\CreateUserRequest  $request
+     * @return \Illuminate\Http\Response    
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
-        $this->authorize('create', User::class);
+        $user = User::create($request->all());
+
+        $user->assignRole('Citizen');
+        
+        return response()->json($user);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  User $user
+     * @param  int $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($user)
     {
+        $user = User::withTrashedResource()->withRelationships()->findOrFail($user);
+
         $this->authorize('show', $user);
+
+        return response()->json($user);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\UpdateUserRequest;  $request
      * @param  User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $this->authorize('update', $user);
+        $user->update($request->all());
+
+        return response()->json($user);
     }
 
     /**
@@ -66,27 +79,43 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $this->authorize('delete', $user);
+
+        $user->delete();
+
+        return response()->noContent();
     }
 
     /**
      * Restore the specified resource from storage.
      *
-     * @param  User $user
+     * @param  int $user
      * @return \Illuminate\Http\Response
      */
-    public function restore(User $user)
+    public function restore($user)
     {
+        $user = User::onlyTrashed()->findOrFail($user);
+        
         $this->authorize('restore', $user);
+
+        $user->restore();
+
+        return response()->json($user);
     }
 
     /**
      * Remove the specified resource from storage (hard-deletes).
      *
-     * @param  User $user
+     * @param  int $user
      * @return \Illuminate\Http\Response
      */
-    public function forceDelete(User $user)
+    public function forceDelete($user)
     {
+        $user = User::onlyTrashed()->findOrFail($user);
+
         $this->authorize('hardDelete', $user);
+
+        $user->forceDelete();
+
+        return response()->noContent();
     }
 }

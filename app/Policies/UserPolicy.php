@@ -105,4 +105,17 @@ class UserPolicy
                 ? Response::allow()
                 : Response::deny('You are not allowed to hard delete users.');
     }
+
+    /**
+     * Determine whether the user can models trashed items.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function withTrashed(User $user)
+    {
+        return $user->can('withTrashed users')
+                ? Response::allow()
+                : Response::deny('You are not allowed to show trashed users.');
+    }
 }
