@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\RespondedSupportRequestException;
+use App\Http\Requests\RespondSupportRequestRequest;
 use App\Models\SupportRequest;
 use App\Http\Requests\StoreSupportRequestRequest;
 use App\Http\Requests\UpdateSupportRequestRequest;
@@ -36,7 +38,7 @@ class SupportRequestController extends Controller
      */
     public function store(StoreSupportRequestRequest $request)
     {
-        $supportRequest = SupportRequest::create($request->all());
+        $supportRequest = SupportRequest::create($request->validated());
 
         return response()->json($supportRequest);
     }
@@ -51,7 +53,25 @@ class SupportRequestController extends Controller
     {
         $supportRequest = SupportRequest::withTrashedResource()->withRelationships()->findOrFail($supportRequest);
 
-        $this->authorize('show', $supportRequest);
+        $this->authorize('view', $supportRequest);
+
+        return response()->json($supportRequest);
+    }
+
+    /**
+     * Respond the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\UpdateSupportRequestRequest  $request
+     * @param  \App\Models\SupportRequest  $supportRequest
+     * @return \Illuminate\Http\Response
+     */
+    public function respond(RespondSupportRequestRequest $request, SupportRequest $supportRequest)
+    {
+        if(!is_null($supportRequest->response)){
+            throw new RespondedSupportRequestException();
+        }
+
+        $supportRequest->update($request->validated());
 
         return response()->json($supportRequest);
     }
@@ -65,7 +85,7 @@ class SupportRequestController extends Controller
      */
     public function update(UpdateSupportRequestRequest $request, SupportRequest $supportRequest)
     {
-        $supportRequest->update($request->all());
+        $supportRequest->update($request->validated());
 
         return response()->json($supportRequest);
     }
@@ -78,7 +98,11 @@ class SupportRequestController extends Controller
      */
     public function destroy(SupportRequest $supportRequest)
     {
-        //
+        $this->authorize('delete', $supportRequest);
+
+        $supportRequest->delete();
+
+        return response()->noContent();
     }
 
     /**

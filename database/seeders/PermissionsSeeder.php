@@ -23,7 +23,9 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name'=>'delete users']);
         Permission::create(['name'=>'restore users']);
         Permission::create(['name'=>'hardDelete users']);
+        Permission::create(['name'=>'withTrashed users']);
 
+        //Support Request Permissions
         Permission::create(['name'=>'view supportRequests']);
         Permission::create(['name'=>'create supportRequests']);
         Permission::create(['name'=>'respond supportRequests']);
@@ -31,19 +33,42 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name'=>'delete supportRequests']);
         Permission::create(['name'=>'restore supportRequests']);
         Permission::create(['name'=>'hardDelete supportRequests']);
+        Permission::create(['name'=>'withTrashed supportRequests']);
 
+        //Vehicle Permissions
+        Permission::create(['name'=>'view vehicles']);
+        Permission::create(['name'=>'show vehicles']);
+        Permission::create(['name'=>'create vehicles']);
+        Permission::create(['name'=>'update vehicles']);
+        Permission::create(['name'=>'delete vehicles']);
+        Permission::create(['name'=>'restore vehicles']);
+        Permission::create(['name'=>'hardDelete vehicles']);
+        Permission::create(['name'=>'withTrashed vehicles']);
+
+        //Admin
         Role::create(['name'=>'Super Admin']);
 
+        //Citizen
         $roleCitizen = Role::create([
             'name'=>'Citizen',
             'guard_name'=>'api'
         ]);
 
+        $roleCitizen->givePermissionTo([
+            'create supportRequests'
+        ]);
+
+        //Driver
         $roleDriver = Role::create([
             'name'=>'Driver',
             'guard_name'=>'api'
         ]);
 
+        $roleDriver->givePermissionTo([
+            'view vehicles',
+            'show vehicles'
+        ]);
+        //Public Agent
         $roleAgent = Role::create([
             'name'=>'Agent',
             'guard_name'=>'api'
@@ -61,7 +86,14 @@ class PermissionsSeeder extends Seeder
             'create supportRequests',
             'respond supportRequests',
             'delete supportRequests',
-            'restore supportRequests'
+            'restore supportRequests',
+
+            'view vehicles',
+            'show vehicles',
+            'create vehicles',
+            'update vehicles',
+            'delete vehicles',
+            'restore vehicles',
         ]);
     }
 }

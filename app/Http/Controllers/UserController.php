@@ -34,7 +34,7 @@ class UserController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
-        $user = User::create($request->all());
+        $user = User::create($request->validated());
 
         $user->assignRole('Citizen');
         
@@ -51,7 +51,7 @@ class UserController extends Controller
     {
         $user = User::withTrashedResource()->withRelationships()->findOrFail($user);
 
-        $this->authorize('show', $user);
+        $this->authorize('view', $user);
 
         return response()->json($user);
     }
@@ -65,7 +65,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        $user->update($request->all());
+        $user->update($request->validated());
 
         return response()->json($user);
     }

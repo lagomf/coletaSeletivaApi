@@ -2,11 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Models\SupportRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
-class StoreSupportRequestRequest extends FormRequest
+class RespondSupportRequestRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +16,7 @@ class StoreSupportRequestRequest extends FormRequest
      */
     public function authorize()
     {
-        return Gate::authorize('create',User::class);
+        return Gate::authorize('respond', $this->supportRequest);
     }
 
     /**
@@ -26,9 +27,8 @@ class StoreSupportRequestRequest extends FormRequest
     public function rules()
     {
         return [
-            'type' => 'required|in:0,1,2,3,4', 
-            'reason' => 'required_if:type,0|string',
-            'requester_id' => 'required'
+            'response' => 'required|string',
+            'responder_id' => 'required|integer|exists:users,id'
         ];
     }
 
@@ -40,7 +40,7 @@ class StoreSupportRequestRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'requester_id' => Auth::user()->id,
+            'responder_id' => Auth::user()->id,
         ]);
     }
 }

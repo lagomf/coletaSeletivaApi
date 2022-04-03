@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SupportRequest extends Model
+class Vehicle extends Model
 {
-    use HasFactory, FilterableResource, SoftDeletes;
+    use HasFactory, SoftDeletes, FilterableResource;
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +17,9 @@ class SupportRequest extends Model
      * @var array
      */
     protected $fillable = [
-        'type', 'reason', 'status','requester_id','responder_id','response',
+        'name',
+        'plate',
+        'status'
     ];
 
     /**
@@ -35,7 +37,7 @@ class SupportRequest extends Model
      * @var array
      */
     protected $casts = [
-        'resolved_at' => 'datetime',
+        
     ];
 
     /**
@@ -45,12 +47,9 @@ class SupportRequest extends Model
      */
     private static $whiteListFilter =[
         'id',
-        'type',
-        'reason',
-        'status',
-        'requester_id',
-        'responder_id',
-        'resolved_at'
+        'name',
+        'plate',
+        'status'
     ];
 
     /**
@@ -59,15 +58,6 @@ class SupportRequest extends Model
      * @var array
      */
     private static $whiteListInclude =[
-        'requester',
-        'responder'
+        
     ];
-
-    public function requester(){
-        return $this->belongsTo(User::class,'requester_id');
-    }
-
-    public function responder(){
-        return $this->belongsTo(User::class,'responder_id');
-    }
 }

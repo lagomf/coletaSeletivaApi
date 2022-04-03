@@ -23,7 +23,7 @@ class CreateSupportRequestsTable extends Migration
             $table->foreign('requester_id')->references('id')->on('users');
             $table->foreignId('responder_id')->nullable();
             $table->foreign('responder_id')->references('id')->on('users');
-            $table->timestamp('resolved_at');
+            $table->timestamp('resolved_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

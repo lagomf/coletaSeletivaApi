@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SupportRequestController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VehicleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,5 +28,12 @@ Route::group([
     Route::delete('users/{user}/force',[UserController::class,'forceDelete']);
     Route::apiResource('users',UserController::class);
 
-    Route::apiResource('SupportRequest',SupportRequestController::class);
+    Route::post('supportRequests/{supportRequest}/respond',[SupportRequestController::class,'respond']);
+    Route::get('supportRequests/{supportRequest}/restore',[SupportRequestController::class,'restore']);
+    Route::delete('supportRequests/{supportRequest}/force',[SupportRequestController::class,'forceDelete']);
+    Route::apiResource('supportRequests',SupportRequestController::class);
+
+    Route::get('vehicles/{vehicle}/restore',[VehicleController::class,'restore']);
+    Route::delete('vehicles/{vehicle}/force',[VehicleController::class,'forceDelete']);
+    Route::apiResource('vehicles',VehicleController::class);
 });
