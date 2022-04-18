@@ -66,6 +66,8 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $user->update($request->validated());
+        
+        $user->revokeAllTokens();
 
         return response()->json($user);
     }
@@ -79,6 +81,8 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $this->authorize('delete', $user);
+
+        $user->revokeAllTokens();
 
         $user->delete();
 

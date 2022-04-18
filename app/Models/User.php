@@ -87,4 +87,11 @@ class User extends Authenticatable
     public function supportRequestsResponded(){
         return $this->hasMany(SupportRequest::class,'responder_id');
     }
+
+    public function revokeAllTokens(){
+        $tokens = $this->tokens()->get();
+        foreach($tokens as $token){
+            $token->revoke();
+        }
+    }
 }

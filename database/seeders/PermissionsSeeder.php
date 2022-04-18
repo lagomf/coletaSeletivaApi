@@ -46,7 +46,10 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name'=>'withTrashed vehicles']);
 
         //Admin
-        Role::create(['name'=>'Super Admin']);
+        Role::create([
+            'name'=>'Super Admin',
+            'guard_name'=>'api'
+        ]);
 
         //Citizen
         $roleCitizen = Role::create([
