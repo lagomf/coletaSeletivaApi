@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use GuzzleHttp\Promise\Create;
@@ -29,10 +29,10 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  App\Http\Requests\CreateUserRequest  $request
+     * @param  App\Http\Requests\StoreUserRequest  $request
      * @return \Illuminate\Http\Response    
      */
-    public function store(CreateUserRequest $request)
+    public function store(StoreUserRequest $request)
     {
         $user = User::create($request->validated());
 
