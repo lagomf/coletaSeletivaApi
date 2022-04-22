@@ -13,6 +13,7 @@ use Spatie\Permission\Traits\HasRoles;
 use App\Traits\FilterSortPaginate;
 use App\Traits\IncludesRelationships;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 use function PHPSTORM_META\map;
 
@@ -93,5 +94,15 @@ class User extends Authenticatable
         foreach($tokens as $token){
             $token->revoke();
         }
+    }
+
+    public function authorizedRoles(){
+        if($this->hasRole('Super Admin')){
+            $roles = Role::all();
+        }else{
+            $roles = Role::whereNotIn('id',[1])->get();
+        }
+        
+        return $roles;
     }
 }

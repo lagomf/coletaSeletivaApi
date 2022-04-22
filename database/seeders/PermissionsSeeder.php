@@ -15,35 +15,38 @@ class PermissionsSeeder extends Seeder
      */
     public function run()
     {
+        //Role Permissions
+        Permission::create(['name'=>'view roles']);
+
         //User Permissions
-        Permission::create(['name'=>'view users']);
-        Permission::create(['name'=>'show users']);
-        Permission::create(['name'=>'create users']);
-        Permission::create(['name'=>'update users']);
-        Permission::create(['name'=>'delete users']);
-        Permission::create(['name'=>'restore users']);
-        Permission::create(['name'=>'hardDelete users']);
-        Permission::create(['name'=>'withTrashed users']);
+        Permission::create(['name'=>'view users','guard_name'=>'api']);
+        Permission::create(['name'=>'show users','guard_name'=>'api']);
+        Permission::create(['name'=>'create users','guard_name'=>'api']);
+        Permission::create(['name'=>'update users','guard_name'=>'api']);
+        Permission::create(['name'=>'delete users','guard_name'=>'api']);
+        Permission::create(['name'=>'restore users','guard_name'=>'api']);
+        Permission::create(['name'=>'hardDelete users','guard_name'=>'api']);
+        Permission::create(['name'=>'withTrashed users','guard_name'=>'api']);
 
         //Support Request Permissions
-        Permission::create(['name'=>'view supportRequests']);
-        Permission::create(['name'=>'create supportRequests']);
-        Permission::create(['name'=>'respond supportRequests']);
-        Permission::create(['name'=>'update supportRequests']);
-        Permission::create(['name'=>'delete supportRequests']);
-        Permission::create(['name'=>'restore supportRequests']);
-        Permission::create(['name'=>'hardDelete supportRequests']);
-        Permission::create(['name'=>'withTrashed supportRequests']);
+        Permission::create(['name'=>'view supportRequests','guard_name'=>'api']);
+        Permission::create(['name'=>'create supportRequests','guard_name'=>'api']);
+        Permission::create(['name'=>'respond supportRequests','guard_name'=>'api']);
+        Permission::create(['name'=>'update supportRequests','guard_name'=>'api']);
+        Permission::create(['name'=>'delete supportRequests','guard_name'=>'api']);
+        Permission::create(['name'=>'restore supportRequests','guard_name'=>'api']);
+        Permission::create(['name'=>'hardDelete supportRequests','guard_name'=>'api']);
+        Permission::create(['name'=>'withTrashed supportRequests','guard_name'=>'api']);
 
         //Vehicle Permissions
-        Permission::create(['name'=>'view vehicles']);
-        Permission::create(['name'=>'show vehicles']);
-        Permission::create(['name'=>'create vehicles']);
-        Permission::create(['name'=>'update vehicles']);
-        Permission::create(['name'=>'delete vehicles']);
-        Permission::create(['name'=>'restore vehicles']);
-        Permission::create(['name'=>'hardDelete vehicles']);
-        Permission::create(['name'=>'withTrashed vehicles']);
+        Permission::create(['name'=>'view vehicles','guard_name'=>'api']);
+        Permission::create(['name'=>'show vehicles','guard_name'=>'api']);
+        Permission::create(['name'=>'create vehicles','guard_name'=>'api']);
+        Permission::create(['name'=>'update vehicles','guard_name'=>'api']);
+        Permission::create(['name'=>'delete vehicles','guard_name'=>'api']);
+        Permission::create(['name'=>'restore vehicles','guard_name'=>'api']);
+        Permission::create(['name'=>'hardDelete vehicles','guard_name'=>'api']);
+        Permission::create(['name'=>'withTrashed vehicles','guard_name'=>'api']);
 
         //Admin
         Role::create([

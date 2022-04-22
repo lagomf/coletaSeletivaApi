@@ -59,7 +59,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return ($user->is($model) || $user->can('update users'))
+        return ((!$user->is($model)) && $user->can('update users'))
                 ? Response::allow()
                 : Response::deny('You are not allowed to update users.');
     }

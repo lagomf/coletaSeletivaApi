@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SupportRequestController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
@@ -41,7 +42,11 @@ Route::group([
         Route::patch('password',[ProfileController::class,'updatePassword']);
     });
 
+    //Roles Resource
+    Route::get('roles',[RoleController::class,'index']);
+
     //Users Resource
+    Route::patch('users/{user}/role',[UserController::class,'role']);
     Route::get('users/{user}/restore',[UserController::class,'restore']);
     Route::delete('users/{user}/force',[UserController::class,'forceDelete']);
     Route::apiResource('users',UserController::class);

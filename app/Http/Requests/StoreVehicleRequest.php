@@ -27,7 +27,7 @@ class StoreVehicleRequest extends FormRequest
     {
         return [
             "name" => "required|string",
-            "plate" => "required|string"
+            "plate" => "required|string|unique:vehicles,plate"
         ];
     }
 }

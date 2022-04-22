@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,8 +22,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'mlfrete@gmail.com',
             'password' => 'root'
         ]);
-
-        $user->assignRole('Super Admin');
+        $role = Role::first();
+        $user->assignRole($role);
 
         
     }
