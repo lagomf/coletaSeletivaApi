@@ -26,7 +26,7 @@ class StoreSupportRequestRequest extends FormRequest
     public function rules()
     {
         return [
-            'type' => 'required|in:0,1,2,3,4', 
+            'type' => 'required|in:1,2,3,4', 
             'reason' => 'required_if:type,0|string',
             'requester_id' => 'required'
         ];
