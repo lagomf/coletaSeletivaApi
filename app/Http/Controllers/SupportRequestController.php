@@ -38,6 +38,8 @@ class SupportRequestController extends Controller
      */
     public function store(StoreSupportRequestRequest $request)
     {
+        $this->authorize('create', SupportRequest::class);
+
         $supportRequest = SupportRequest::create($request->validated());
 
         return response()->json($supportRequest);
@@ -72,7 +74,9 @@ class SupportRequestController extends Controller
         }
 
         $supportRequest->update($request->validated());
-
+        $supportRequest->status = true;
+        $supportRequest->save();
+        
         return response()->json($supportRequest);
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class UpdateSupportRequestRequest extends FormRequest
@@ -29,5 +30,19 @@ class UpdateSupportRequestRequest extends FormRequest
             'response' => 'sometimes|string|nullable',
             'responder_id' => 'sometimes|integer|exists:users,id'
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        if($this->has('response')){
+            $this->merge([
+                'responder_id' => Auth::user()->id,
+            ]);
+        }
     }
 }

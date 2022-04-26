@@ -89,7 +89,6 @@ class PermissionsSeeder extends Seeder
             'restore users',
 
             'view supportRequests',
-            'create supportRequests',
             'respond supportRequests',
             'delete supportRequests',
             'restore supportRequests',
