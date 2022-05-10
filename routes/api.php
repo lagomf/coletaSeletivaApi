@@ -4,8 +4,10 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\RouteController;
 use App\Http\Controllers\SupportRequestController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
@@ -61,4 +63,13 @@ Route::group([
     Route::get('vehicles/{vehicle}/restore',[VehicleController::class,'restore']);
     Route::delete('vehicles/{vehicle}/force',[VehicleController::class,'forceDelete']);
     Route::apiResource('vehicles',VehicleController::class);
+
+    //Districts
+    Route::get('districts',DistrictController::class);
+
+    //Routes
+    Route::get('routes/{route}/restore',[RouteController::class,'restore']);
+    Route::delete('routes/{route}/force',[RouteController::class,'forceDelete']);
+    Route::apiResource('routes', RouteController::class);
+    
 });

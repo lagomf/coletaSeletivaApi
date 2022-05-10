@@ -48,6 +48,16 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name'=>'hardDelete vehicles','guard_name'=>'api']);
         Permission::create(['name'=>'withTrashed vehicles','guard_name'=>'api']);
 
+        //Route Permissions
+        Permission::create(['name'=>'view routes','guard_name'=>'api']);
+        Permission::create(['name'=>'show routes','guard_name'=>'api']);
+        Permission::create(['name'=>'create routes','guard_name'=>'api']);
+        Permission::create(['name'=>'update routes','guard_name'=>'api']);
+        Permission::create(['name'=>'delete routes','guard_name'=>'api']);
+        Permission::create(['name'=>'restore routes','guard_name'=>'api']);
+        Permission::create(['name'=>'hardDelete routes','guard_name'=>'api']);
+        Permission::create(['name'=>'withTrashed routes','guard_name'=>'api']);
+
         //Admin
         Role::create([
             'name'=>'Super Admin',
@@ -99,6 +109,13 @@ class PermissionsSeeder extends Seeder
             'update vehicles',
             'delete vehicles',
             'restore vehicles',
+
+            'view routes',
+            'show routes',
+            'create routes',
+            'update routes',
+            'delete routes',
+            'restore routes',
         ]);
     }
 }

@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(CitySeeder::class);
+        $this->call(DistrictSeeder::class);
         $this->call(PermissionsSeeder::class);
         
         $user = User::create([

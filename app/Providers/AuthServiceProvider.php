@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Route;
 use App\Models\SupportRequest;
 use App\Models\User;
 use App\Models\Vehicle;
+use App\Policies\RoutePolicy;
 use App\Policies\SupportRequestPolicy;
 use App\Policies\UserPolicy;
 use App\Policies\VehiclePolicy;
@@ -24,7 +26,8 @@ class AuthServiceProvider extends ServiceProvider
         // 'App\Model' => 'App\Policies\ModelPolicy',
         User::class => UserPolicy::class,
         SupportRequest::class => SupportRequestPolicy::class,
-        Vehicle::class => VehiclePolicy::class
+        Vehicle::class => VehiclePolicy::class,
+        Route::class => RoutePolicy::class,
     ];
 
     /**
