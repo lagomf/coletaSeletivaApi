@@ -19,7 +19,9 @@ class Vehicle extends Model
     protected $fillable = [
         'name',
         'plate',
-        'status'
+        'status',
+        'provider_id',
+        'sensor_identifier'
     ];
 
     /**
@@ -45,11 +47,13 @@ class Vehicle extends Model
      *
      * @var array
      */
-    private static $whiteListFilter =[
+    private static $whiteListFilter = [
         'id',
         'name',
         'plate',
-        'status'
+        'status',
+        'sensor_identifier',
+        'provider_id'
     ];
 
     /**
@@ -57,7 +61,11 @@ class Vehicle extends Model
      *
      * @var array
      */
-    private static $whiteListInclude =[
-        
+    private static $whiteListInclude = [
+        'provider'
     ];
+
+    public function provider(){
+        return $this->belongsTo(SensorProvider::class,'provider_id');
+    }
 }

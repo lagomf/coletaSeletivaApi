@@ -2,11 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Vehicle;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreVehicleRequest extends FormRequest
+class GetSensorDataRequestByVehicle extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +14,7 @@ class StoreVehicleRequest extends FormRequest
      */
     public function authorize()
     {
-        return Gate::authorize('create',Vehicle::class);
+        return Gate::authorize('view',$this->vehicle);
     }
 
     /**
@@ -26,10 +25,7 @@ class StoreVehicleRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|string",
-            "plate" => "required|string|unique:vehicles,plate",
-            "provider_id" => "required|integer|exists:sensor_providers,id",
-            "sensor_identifier" => "required|string"
+            'date' => "sometimes"
         ];
     }
 }

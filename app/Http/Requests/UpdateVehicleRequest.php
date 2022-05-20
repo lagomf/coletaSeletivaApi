@@ -27,7 +27,9 @@ class UpdateVehicleRequest extends FormRequest
         return [
             "name" => "sometimes|string",
             "plate" => "sometimes|string",
-            "status" => "sometimes|boolean"
+            "status" => "sometimes|boolean",
+            "provider_id" => "sometimes|integer|exists:sensor_providers,id",
+            "sensor_identifier" => "sometimes|string"
         ];
     }
 }

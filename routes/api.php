@@ -8,6 +8,8 @@ use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RouteController;
+use App\Http\Controllers\SensorDataController;
+use App\Http\Controllers\SensorProviderController;
 use App\Http\Controllers\SupportRequestController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
@@ -59,6 +61,9 @@ Route::group([
     Route::delete('supportRequests/{supportRequest}/force',[SupportRequestController::class,'forceDelete']);
     Route::apiResource('supportRequests',SupportRequestController::class);
 
+    //Sensor Providers
+    Route::get('sensorProviders', SensorProviderController::class);
+
     //Vehicles Resource
     Route::get('vehicles/{vehicle}/restore',[VehicleController::class,'restore']);
     Route::delete('vehicles/{vehicle}/force',[VehicleController::class,'forceDelete']);
@@ -71,5 +76,11 @@ Route::group([
     Route::get('routes/{route}/restore',[RouteController::class,'restore']);
     Route::delete('routes/{route}/force',[RouteController::class,'forceDelete']);
     Route::apiResource('routes', RouteController::class);
+    
+    //SensorData
+    Route::group(['prefix'=>'sensorData'],function(){
+        Route::get('all',[SensorDataController::class,'index']);
+        Route::get('{vehicle}',[SensorDataController::class,'byVehicle']);
+    });
     
 });
