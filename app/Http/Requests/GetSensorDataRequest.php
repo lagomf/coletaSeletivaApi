@@ -24,7 +24,7 @@ class GetSensorDataRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => "sometimes"
+            'date' => "required|date"
         ];
     }
 }

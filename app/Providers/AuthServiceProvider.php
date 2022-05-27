@@ -42,7 +42,7 @@ class AuthServiceProvider extends ServiceProvider
         Passport::routes();
         
         ResetPassword::createUrlUsing(function ($user, string $token) {
-            return env('FRONT_END_URL').'/reset-password?token='.$token;
+            return env('FRONT_END_URL').'/resetar-senha?token='.$token;
         });
 
         // Implicitly grant "Super Admin" role all permissions

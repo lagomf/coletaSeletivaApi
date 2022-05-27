@@ -6,6 +6,13 @@ use Illuminate\Support\Carbon;
 
 class SentiloService
 {
+    private $sentilo_url, $sentilo_key;
+
+    public function __construct()
+    {
+        $this->sentilo_url = env("SENTILO_API_URL");
+        $this->sentilo_key = env("SENTILO_KEY");
+    }
     /**
      * Makes API call to an endpoint at Sentilo.
      *
@@ -20,15 +27,14 @@ class SentiloService
      */
     private function request($endpoint, $method = 'GET', $body = [], $headers = [], $params = [], $http_errors = true) {
         $exact_headers = [
-            'IDENTITY_KEY' => env("SENTILO_KEY"),
+            'IDENTITY_KEY' => $this->sentilo_key,
             'Accept-Encoding' => 'gzip, deflate, br'
         ];
 
         $headers = array_merge($exact_headers, $headers ?? []);
 
-        $sentilo_api_url = env("SENTILO_API_URL");
+        $sentilo_api_url = $this->sentilo_url;
         $url = "$sentilo_api_url/$endpoint";
-
         return apiCall($url, $method, $body, $headers, $params, $http_errors);
     }
 

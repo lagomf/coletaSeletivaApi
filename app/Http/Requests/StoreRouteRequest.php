@@ -27,7 +27,7 @@ class StoreRouteRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|nullable|string',
-            'color' => ['required', 'regex:/^#[\dA-F]{6}$/i'],
+            'color' => ['required', 'regex:/^#[\dA-F]{3,6}$/i'],
 
             'days' => 'required|array|max:7|min:1',
             'days.*' => 'required|numeric|in:0,1,2,3,4,5,6,7',

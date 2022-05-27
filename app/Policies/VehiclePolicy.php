@@ -119,4 +119,16 @@ class VehiclePolicy
                 ? Response::allow()
                 : Response::deny('You are not allowed to show trashed vehicles.');
     }
+
+    /**
+     * Determine whether the user can view sensor providers.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewProviders(User $user){
+        return $user->can('create vehicles') || $user->can('update vehicles')
+                ? Response::allow()
+                : Response::deny('You are not allowed to view providers.');
+    }
 }

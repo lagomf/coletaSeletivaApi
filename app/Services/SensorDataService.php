@@ -32,11 +32,17 @@ class SensorDataService
         return $this->renderData($response);
     }
 
+    public function getVehicleData($vehicle, $start_date = null, $end_date = null){
+        return $this->getData($vehicle->provider->identifier,$vehicle->sensor_identifier,$start_date,$end_date);
+    }
+
     public function getVehiclesData($vehicles, $start_date = null, $end_date = null){
         $response = [];
         foreach($vehicles as $vehicle){
-            $data = $this->getData($vehicle->provider->identifier,$vehicle->sensor_identifier,$start_date,$end_date);
-            $response[] = $data;
+            $data = $this->getVehicleData($vehicle,$start_date,$end_date);
+            if(count($data)){
+                $response[] = $data;
+            }
         }
 
         return $response;

@@ -11,7 +11,7 @@ use Carbon\Carbon;
 class SensorDataController extends Controller
 {
     public function index(GetSensorDataRequest $request){
-        $vehicles = Vehicle::all();
+        $vehicles = Vehicle::where('status',1)->get();
 
         $date = Carbon::parse($request->date);
 
@@ -26,7 +26,7 @@ class SensorDataController extends Controller
         $date = Carbon::parse($request->date);
         $data_service = new SensorDataService();
 
-        $data = $data_service->getData($vehicle->provider->identifier,$vehicle->sensor_identifier,$date);
+        $data = $data_service->getVehicleData($vehicle,$date);
 
         return response()->json($data);
     }
