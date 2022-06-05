@@ -26,7 +26,7 @@ class UpdateRouteRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|nullable|string',
-            'color' => ['sometimes', 'regex:/^#[\dA-F]{6}$/i'],
+            'color' => ['sometimes', 'regex:/^#[\dA-F]{3,6}$/i'],
 
             'days' => 'sometimes|array|max:7|min:1',
             'days.*' => 'required_with:days|numeric|in:0,1,2,3,4,5,6,7',

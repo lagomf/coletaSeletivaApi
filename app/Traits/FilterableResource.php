@@ -11,7 +11,7 @@ trait FilterableResource
     use Filterable;
 
     public static function scopeFilterSortPaginate($query){
-        return $query->ignoreRequest([' ','include','withTrashed'])
+        return $query->ignoreRequest(['perpage','include','withTrashed'])
             ->filter()
             ->paginate(request()->perpage, ['*'], 'page', request()->page ?? 1)
             ->appends(request()->query());
