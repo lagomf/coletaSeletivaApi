@@ -28,7 +28,12 @@ class SensorDataService
         $sentilo_service = new SentiloService();
 
         $response = $sentilo_service->getObservationsBySensor($provider,$sensor_identifier,$start_date,$end_date);
-    
+        // if(!count($response['observations'] )){
+        //     $elastic_search_service = new ElasticSearchService();
+
+        //     $response = $elastic_search_service->getObservationsBySensor($provider,$sensor_identifier,$start_date,$end_date);
+        // }
+
         return $this->renderData($response);
     }
 
